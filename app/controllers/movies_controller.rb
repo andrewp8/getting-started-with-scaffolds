@@ -1,11 +1,12 @@
 class MoviesController < ApplicationController
   def new
-    render template: "movies/new"
+    @the_movie = Movie.new
+    # render "movies/new" #can be obmit if the tamplate name matches the method name
   end
 
   def edit
     @the_movie = Movie.where(id: params.fetch(:id))[0]
-    render template: "movies/edit"
+    # render template: "movies/edit"
   end
 
   def index
@@ -13,7 +14,7 @@ class MoviesController < ApplicationController
 
     @list_of_movies = matching_movies.order({ :created_at => :desc })
 
-    render({ :template => "movies/index" })
+    # render({ :template => "movies/index" })
   end
 
   def show
@@ -23,7 +24,7 @@ class MoviesController < ApplicationController
 
     @the_movie = matching_movies.first
 
-    render({ :template => "movies/show" })
+    # render({ :template => "movies/show" })
   end
 
   def create
@@ -36,10 +37,9 @@ class MoviesController < ApplicationController
       @the_movie.save
       redirect_to("/movies", { :notice => "Movie created successfully." })
     else
-      render template: "movies/with_errors"
+      render "movies/new"
     end
   end
-
   def update
     the_id = params.fetch("path_id")
     @the_movie = Movie.where({ :id => the_id }).first
