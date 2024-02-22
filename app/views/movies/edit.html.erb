@@ -1,14 +1,11 @@
-     
+<%= link_to "Movies", root_path %>
 <h2>
   Edit movie
 </h2>
-<%# @the_movie.errors.full_messages.each do |msg| %>
-<!--  <li><%#= msg %></li>-->
-<%# end %>
-<h1>test</h1>
-<%#= @the_movies %>
-<%#= @the_movie.inspect %>
-<form action="/movies/<%= @the_movie.id %>"  method="post" data-turbo="false">
+<% @the_movie.errors.full_messages.each do |message| %>
+  <p style="color: red;"><%= message %></p>
+<% end %>
+<form action="<%= movie_path(@the_movie.id) %>" method="post" data-turbo="false">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type="hidden" name="_method" value="patch">
   <div>
@@ -36,6 +33,6 @@
   </div>
 
   <button>
-    Update movie
+    Edit movie
   </button>
 </form>
